@@ -11,3 +11,15 @@
 AllCops:
   Exclude:
     - Gemfile
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/*
+
+Layout/SpaceBeforeBlockBraces:
+  Exclude:
+    - spec/*
+
+Layout/SpaceInsideParens:
+  Exclude:
+    - spec/*
