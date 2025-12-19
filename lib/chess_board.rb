@@ -1,19 +1,18 @@
 # frozen-string-literal: false
 
-require_relative 'knight'
-require_relative 'pawn'
+require_relative 'chess_pieces/knight'
+require_relative 'chess_pieces/pawn'
+require_relative 'chess_pieces/rook'
+require_relative 'chess_pieces/bishop'
+require_relative 'chess_pieces/queen'
+require_relative 'chess_pieces/king'
 require 'colorize'
 
 # move chess pieces, check if checkmate
 class ChessBoard
   def initialize
     @board = Array.new(8) { Array.new(8) }
-
-    # pawns
-    (0..7).each do |column|
-      @board[column][1] = Pawn.new
-      @board[column][6] = Pawn.new
-    end
+    spawn_pieces
   end
 
   def row(row_index)
@@ -25,30 +24,56 @@ class ChessBoard
     row_values
   end
 
-  def to_s
-    board = "   | a | b | c | d | e | f | g | h\n"
+  def to_s # rubocop:disable Metrics/MethodLength
+    board = "     a   b   c   d   e   f   g   h\n"
     add_line(board)
     (1..8).reverse_each do |row|
       board << " #{row} |"
 
       (0..7).each do |column|
-        square = @board[column][row - 1] || '-'
+        square = @board[column][row - 1] || ' '
         board << " #{square} |"
       end
 
-      board << "\n"
+      board << " #{row}\n"
       add_line(board)
     end
 
-    board << "   | a | b | c | d | e | f | g | h\n"
+    board << "     a   b   c   d   e   f   g   h\n"
     board
   end
 
   private
 
   def add_line(msg)
-    9.times { msg << '---|' }
+    msg << '   |'
+    8.times { msg << '---|' }
     msg << "\n"
     msg
+  end
+
+  def add_pieces_to_board(piece, columns, rows = [0, 7])
+    columns.each do |column|
+      @board[column][rows[0]] = piece.new(:white)
+      @board[column][rows[1]] = piece.new(:black)
+    end
+  end
+
+  def spawn_pieces
+    # add pawns
+    add_pieces_to_board(Pawn, 0..7, [1, 6])
+
+    # add rooks
+    add_pieces_to_board(Rook, [0, 7])
+
+    # add knights
+    add_pieces_to_board(Knight, [1, 6])
+
+    # add bishop
+    add_pieces_to_board(Bishop, [2, 5])
+
+    # add queen/king
+    add_pieces_to_board(Queen, [3])
+    add_pieces_to_board(King, [4])
   end
 end
