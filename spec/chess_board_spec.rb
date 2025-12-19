@@ -37,6 +37,21 @@ describe ChessBoard do
         expect(first_row).to all be_kind_of(Pawn)
       end
     end
+
+    context 'when third row contains pawns' do
+      let(:board) { Array.new(8) { Array.new(8) } }
+      before do
+        chess_board.instance_variable_set(:@board, board)
+        (0..7).each do |column|
+          board[column][2] = Pawn.new
+        end
+      end
+
+      it 'has pawns in third row' do
+        first_row = chess_board.row(2)
+        expect(first_row).to all be_kind_of(Pawn)
+      end
+    end
   end
 
   describe '#to_s' do
