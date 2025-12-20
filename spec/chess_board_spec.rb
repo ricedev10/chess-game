@@ -62,9 +62,25 @@ describe ChessBoard do
 
     context 'when moving a pawn two steps forward' do
       it 'moves forward' do
-        board = chess_board.instance_variable_get(:@board)
         white_pawn = board[4][1]
         expect { chess_board.move([4, 1], [4, 3]) }.to change{ board[4][3] }.from(nil).to(white_pawn)
+      end
+
+      it 'sets previous position to nil' do
+        white_pawn = board[4][1]
+        expect { chess_board.move([4, 1], [4, 3]) }.to change{ board[4][1] }.from(white_pawn).to(nil)
+      end
+    end
+
+    context 'when moving black pawn forward' do
+      let(:black_pawn) { board[4][6] }
+
+      it 'is a black pawn' do
+        expect(black_pawn).to have_attributes(color: :black)
+      end
+
+      it 'moves forward' do
+        expect { chess_board.move([4, 6], [4, 5]) }.to change{ board[4][5] }.from(nil).to(black_pawn)
       end
     end
 

@@ -45,7 +45,21 @@ class ChessBoard
 
   def move(position, new_position)
     chess_piece = @board[position[0]][position[1]]
-    can_move, error_msg = chess_piece.can_move_to?(@board, position, new_position)
+    can_move, error_msg =
+      if chess_piece.color == :white
+        chess_piece.can_move_to?(
+          @board,
+          position,
+          new_position
+        )
+      else
+        chess_piece.can_move_to?(
+          flipped_board,
+          [position[0], 7 - position[1]],
+          [new_position[0], 7 - new_position[1]]
+        )
+      end
+
     raise(ArgumentError, error_msg) unless can_move
 
     @board[new_position[0]][new_position[1]] = chess_piece
