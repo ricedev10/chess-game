@@ -3,6 +3,7 @@ require_relative '../lib/chess_pieces/pawn'
 
 describe ChessBoard do
   subject(:chess_board) { described_class.new }
+  let(:board) { chess_board.instance_variable_get(:@board) }
 
   describe '#initialize' do
     matcher :be_count_of do |length|
@@ -54,9 +55,33 @@ describe ChessBoard do
     end
   end
 
-  describe '#to_s' do
-    it 'puts the board' do
-      puts "\n#{chess_board}"
+  describe '#move' do
+    after(:each) do
+      puts chess_board
+    end
+
+    context 'when moving a pawn two steps forward' do
+      it 'moves forward' do
+        board = chess_board.instance_variable_get(:@board)
+        white_pawn = board[4][1]
+        expect { chess_board.move([4, 1], [4, 3]) }.to change{ board[4][3] }.from(nil).to(white_pawn)
+      end
+    end
+
+    context 'when moving pawn illegally' do
+      it 'errors when moving backwards' do
+        expect { chess_board.move([4, 1], [4, 0]) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'when pawn is blocked' do
+      before do
+        board[4][2] = Pawn.new
+      end
+
+      it 'errors' do
+        expect { chess_board.move([4, 1], [4, 3]) }.to raise_error(ArgumentError)
+      end
     end
   end
 end

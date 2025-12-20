@@ -43,6 +43,15 @@ class ChessBoard
     board
   end
 
+  def move(position, new_position)
+    chess_piece = @board[position[0]][position[1]]
+    can_move, error_msg = chess_piece.can_move_to?(@board, position, new_position)
+    raise(ArgumentError, error_msg) unless can_move
+
+    @board[new_position[0]][new_position[1]] = chess_piece
+    @board[position[0]][position[1]] = nil
+  end
+
   private
 
   def add_line(msg)
