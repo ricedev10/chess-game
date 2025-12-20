@@ -84,4 +84,24 @@ describe ChessBoard do
       end
     end
   end
+
+  describe '#flipped_board' do
+    context 'when board has a new game' do
+      it 'has flipped the colors of black/white' do
+        flipped = chess_board.flipped_board
+        front_two_rows = []
+        last_two_rows = []
+        flipped.each do |column|
+          front_two_rows << column[0]
+          front_two_rows << column[1]
+
+          last_two_rows << column[7]
+          last_two_rows << column[6]
+        end
+
+        expect(front_two_rows).to all( have_attributes(color: :black) )
+        expect(last_two_rows).to all( have_attributes(color: :white) )
+      end
+    end
+  end
 end

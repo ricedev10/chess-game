@@ -52,6 +52,17 @@ class ChessBoard
     @board[position[0]][position[1]] = nil
   end
 
+  def flipped_board
+    board = Array.new(8) { Array.new(8, nil) }
+    (0..7).each do |column|
+      (0..7).each do |row|
+        board[column][7 - row] = @board[column][row]
+      end
+    end
+
+    board
+  end
+
   private
 
   def add_line(msg)
