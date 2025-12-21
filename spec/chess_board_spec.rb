@@ -99,6 +99,15 @@ describe ChessBoard do
         expect { chess_board.move([4, 1], [4, 3]) }.to raise_error(ArgumentError)
       end
     end
+
+    context 'when moving a knight' do
+      it 'moves' do
+        knight = board[1][0]
+
+        expect(knight).to be_kind_of(Knight)
+        expect { chess_board.move([1, 0], [2, 2]) }.to change{ board[2][2] }.from(nil).to(knight)
+      end
+    end
   end
 
   describe '#flipped_board' do

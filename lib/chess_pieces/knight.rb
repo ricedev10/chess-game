@@ -7,5 +7,21 @@ class Knight < ChessPiece
 
   def initialize(color = :white)
     super(WHITE_SYMBOL, BLACK_SYMBOL, color)
+    @valid_moves = [
+      [-1, 2],
+      [1, 2],
+      [2, 1],
+      [2, -1],
+      [1, -2],
+      [-1, -2],
+      [-2, -1],
+      [-2, 1]
+    ].freeze
+  end
+
+  def can_move_to?(board, current_position, new_position)
+    return [true] if @valid_moves.any? { |offset| add_positions(current_position, offset) == new_position }
+
+    [false, 'Invalid position']
   end
 end
