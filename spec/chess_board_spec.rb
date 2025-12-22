@@ -56,7 +56,7 @@ describe ChessBoard do
   end
 
   describe '#move' do
-    after(:each) do
+    after(:example) do
       puts chess_board
     end
 
@@ -123,6 +123,39 @@ describe ChessBoard do
 
         expect(bishop).to be_kind_of(Bishop)
         expect { chess_board.move([2, 0], [5, 3]) }.to change { board[5][3] }.from(nil).to(bishop)
+      end
+    end
+
+    context 'when moving a rook' do
+      it 'moves when moving vertically' do
+        board[0][1] = nil # remove pawn blocking rook
+        rook = board[0][0]
+
+        expect(rook).to be_kind_of(Rook)
+        expect { chess_board.move([0, 0], [0, 5]) }.to change { board[0][5] }.from(nil).to(rook)
+      end
+
+      it 'captures a pawn when moving forward' do
+        board[0][1] = nil # remove pawn blocking rook
+        rook = board[0][0]
+
+        expect(rook).to be_kind_of(Rook)
+        expect { chess_board.move([0, 0], [0, 6]) }.to change { board[0][6] }.to(rook)
+      end
+
+      it 'errors when trying to move between a pawn' do
+        board[0][1] = nil # remove pawn blocking rook
+        rook = board[0][0]
+
+        expect(rook).to be_kind_of(Rook)
+        expect { chess_board.move([0, 0], [0, 7]) }.to raise_error(StandardError)
+      end
+
+      it 'moves a rook horizontally' do
+        rook = Rook.new
+        board[2][3] = rook
+
+        expect { chess_board.move([2, 3], [5, 3]) }.to change { board[5][3] }.from(nil).to(rook)
       end
     end
   end
