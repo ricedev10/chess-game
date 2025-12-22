@@ -107,13 +107,22 @@ describe ChessBoard do
         expect(knight).to be_kind_of(Knight)
         expect { chess_board.move([1, 0], [2, 2]) }.to change{ board[2][2] }.from(nil).to(knight)
       end
-    end
 
-    context 'when moving a piece out of bounds' do
-      it 'errors' do
+      it 'errors if out of range' do
         knight = board[1][0]
         expect(knight).to be_kind_of(Knight)
-        expect { chess_board.move([1, 0], [-1, 1]) }.to raise_error
+        expect { chess_board.move([1, 0], [-1, 1]) }.to raise_error(RangeError)
+      end
+    end
+
+    context 'when moving a bishop' do
+      it 'moves when bishop when pawn is out of the way' do
+        # remove the pawn blocking bishop
+        board[3][1] = nil
+        bishop = board[2][0]
+
+        expect(bishop).to be_kind_of(Bishop)
+        expect { chess_board.move([2, 0], [5, 3]) }.to change { board[5][3] }.from(nil).to(bishop)
       end
     end
   end
