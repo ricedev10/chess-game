@@ -6,13 +6,6 @@ class Bishop < ChessPiece
   BLACK_SYMBOL = "\u265D".freeze
 
   def initialize(color = :white)
-    @moves = [
-      [1, 1],
-      [1, -1],
-      [-1, -1],
-      [-1, 1]
-    ].freeze
-
     super(WHITE_SYMBOL, BLACK_SYMBOL, color)
   end
 
