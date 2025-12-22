@@ -1,11 +1,12 @@
 # defines a chess piece; where to move
 class ChessPiece
-  attr_accessor :color
+  attr_accessor :color, :position
 
-  def initialize(white, black, color = :white)
+  def initialize(white, black, color = :white, position = [0, 0])
     @color = color
     @white = white
     @black = black
+    @position = position
   end
 
   def add_positions(position1, position2)
@@ -17,6 +18,10 @@ class ChessPiece
     return false if position[0] > 7 || position[1] > 7
 
     true
+  end
+
+  def flip_position(position)
+    [position[0], 7 - position[1]]
   end
 
   def to_s

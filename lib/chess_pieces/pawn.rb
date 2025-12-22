@@ -5,11 +5,13 @@ class Pawn < ChessPiece
   WHITE_SYMBOL = "\u2659".freeze
   BLACK_SYMBOL = "\u265F".freeze
 
-  def initialize(color = :white)
-    super(WHITE_SYMBOL, BLACK_SYMBOL, color)
+  def initialize(color = :white, position = [0, 0])
+    super(WHITE_SYMBOL, BLACK_SYMBOL, color, position)
   end
 
-  def can_move_to?(board, current_position, new_position)
+  def can_move_to?(board, new_position)
+    current_position = @position
+
     return [false, 'Can only move vertically'] unless current_position[0] == new_position[0]
 
     distance = (new_position[1] - current_position[1])

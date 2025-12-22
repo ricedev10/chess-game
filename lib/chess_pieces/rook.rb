@@ -5,14 +5,15 @@ class Rook < ChessPiece
   WHITE_SYMBOL = "\u2656".freeze
   BLACK_SYMBOL = "\u265C".freeze
 
-  def initialize(color = :white)
-    super(WHITE_SYMBOL, BLACK_SYMBOL, color)
+  def initialize(color = :white, position = [0, 0])
+    super(WHITE_SYMBOL, BLACK_SYMBOL, color, position)
   end
 
-  def can_move_to?(board, current_position, new_position)
-    if current_position[0] != new_position[0] && current_position[1] != new_position[1]
+  def can_move_to?(board, new_position)
+    current_position = @position
+    unless current_position[0] == new_position[0] || current_position[1] == new_position[1]
       raise RangeError,
-            'Must be perpendicular'
+            "Must be perpendicular #{current_position} -> #{new_position}"
     end
 
     position = current_position

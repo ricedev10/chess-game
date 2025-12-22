@@ -47,17 +47,19 @@ class ChessBoard
     raise RangeError if new_position[0].negative? || new_position[1].negative?
 
     chess_piece = @board[position[0]][position[1]]
+    raise StandardError, "Chess piece does not exist at #{new_position}" if chess_piece.nil?
+
     can_move, error_msg =
       if chess_piece.color == :white
         chess_piece.can_move_to?(
           @board,
-          position,
+          # position,
           new_position
         )
       else
         chess_piece.can_move_to?(
           flipped_board,
-          [position[0], 7 - position[1]],
+          # [position[0], 7 - position[1]],
           [new_position[0], 7 - new_position[1]]
         )
       end
@@ -90,8 +92,8 @@ class ChessBoard
 
   def add_pieces_to_board(piece, columns, rows = [0, 7])
     columns.each do |column|
-      @board[column][rows[0]] = piece.new(:white)
-      @board[column][rows[1]] = piece.new(:black)
+      @board[column][rows[0]] = piece.new(:white, [column, rows[0]])
+      @board[column][rows[1]] = piece.new(:black, [column, 7 - rows[1]])
     end
   end
 
