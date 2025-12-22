@@ -6,7 +6,7 @@ class Knight < ChessPiece
   BLACK_SYMBOL = "\u265E".freeze
 
   def initialize(color = :white)
-    @valid_moves = [
+    @moves = [
       [-1, 2],
       [1, 2],
       [2, 1],
@@ -20,8 +20,8 @@ class Knight < ChessPiece
     super(WHITE_SYMBOL, BLACK_SYMBOL, color)
   end
 
-  def can_move_to?(board, current_position, new_position)
-    return [true] if @valid_moves.any? { |offset| add_positions(current_position, offset) == new_position }
+  def can_move_to?(_board, current_position, new_position)
+    return [true] if @moves.any? { |offset| add_positions(current_position, offset) == new_position }
 
     [false, 'Invalid position']
   end
