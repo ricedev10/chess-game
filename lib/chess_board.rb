@@ -12,6 +12,7 @@ require 'colorize'
 class ChessBoard
   def initialize
     @board = Array.new(8) { Array.new(8) }
+    @next_player = :white
     spawn_pieces
   end
 
@@ -28,6 +29,7 @@ class ChessBoard
     board = "     a   b   c   d   e   f   g   h\n"
     add_line(board)
     (1..8).reverse_each do |row|
+      row = @next_player == :white ? row : 9 - row
       board << " #{row} |"
 
       (0..7).each do |column|
