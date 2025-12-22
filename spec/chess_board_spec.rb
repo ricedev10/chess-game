@@ -152,10 +152,25 @@ describe ChessBoard do
       end
 
       it 'moves a rook horizontally' do
-        rook = Rook.new
+        rook = Rook.new(:white, [2, 3])
         board[2][3] = rook
 
         expect { chess_board.move([2, 3], [5, 3]) }.to change { board[5][3] }.from(nil).to(rook)
+      end
+    end
+
+    context 'when moving a queen' do
+      let(:queen) { Queen.new(:white, [2, 3]) }
+      before(:example) do
+        board[2][3] = queen
+      end
+
+      it 'moves the queen forwards horizontally' do
+        expect { chess_board.move([2, 3], [4, 3]) }.to change { board[4][3] }.from(nil).to(queen)
+      end
+
+      it 'moves the queen forwards vertically' do
+        expect { chess_board.move([2, 3], [2, 5]) }.to change { board[2][5] }.from(nil).to(queen)
       end
     end
   end
