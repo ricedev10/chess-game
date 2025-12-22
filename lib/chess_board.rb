@@ -44,6 +44,8 @@ class ChessBoard
   end
 
   def move(position, new_position)
+    raise RangeError if new_position[0].negative? || new_position[1].negative?
+
     chess_piece = @board[position[0]][position[1]]
     can_move, error_msg =
       if chess_piece.color == :white
