@@ -74,6 +74,9 @@ describe ChessBoard do
 
     context 'when moving black pawn forward' do
       let(:black_pawn) { board[4][6] }
+      before do
+        chess_board.move([0, 1], [0, 2]) # move white piece so we can now move black piece
+      end
 
       it 'is a black pawn' do
         expect(black_pawn).to have_attributes(color: :black)

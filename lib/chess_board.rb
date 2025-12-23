@@ -51,6 +51,11 @@ class ChessBoard
     chess_piece = @board[position[0]][position[1]]
     raise StandardError, "Chess piece does not exist at #{new_position}" if chess_piece.nil?
 
+    unless chess_piece.color == @next_player
+      raise StandardError,
+            "Can only move a #{@next_player} piece (attempted to move a #{chess_piece.color} piece)"
+    end
+
     can_move, error_msg =
       if chess_piece.color == :white
         chess_piece.can_move_to?(
@@ -70,6 +75,7 @@ class ChessBoard
 
     @board[new_position[0]][new_position[1]] = chess_piece
     @board[position[0]][position[1]] = nil
+    @next_player = @next_player == :white ? :black : :white
   end
 
   def flipped_board
