@@ -23,3 +23,7 @@ Layout/SpaceBeforeBlockBraces:
 Layout/SpaceInsideParens:
   Exclude:
     - spec/*
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/*
