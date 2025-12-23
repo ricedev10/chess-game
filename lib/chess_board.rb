@@ -10,6 +10,8 @@ require 'colorize'
 
 # move chess pieces, check if checkmate
 class ChessBoard
+  attr_reader :next_player
+
   def initialize
     @board = Array.new(8) { Array.new(8) }
     @next_player = :white
@@ -72,6 +74,12 @@ class ChessBoard
       end
 
     raise(ArgumentError, error_msg) unless can_move
+
+    captured_piece = @board[new_position[0]][new_position[1]]
+    if !captured_piece.nil? && captured_piece.color == chess_piece.color
+      raise StandardError,
+            "Cannot capture piece of same color (#{chess_piece.color})"
+    end
 
     @board[new_position[0]][new_position[1]] = chess_piece
     @board[position[0]][position[1]] = nil

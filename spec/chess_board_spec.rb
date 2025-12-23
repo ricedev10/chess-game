@@ -72,6 +72,18 @@ describe ChessBoard do
       end
     end
 
+    context 'when moving a black piece first' do
+      it 'errors' do
+        expect { chess_board.move([0, 6], [0, 5]) }.to raise_error(StandardError)
+      end
+    end
+
+    context 'when a black piece captures a black piece' do
+      it 'errors' do
+        expect { chess_board.move([0, 7], [0, 6]) }.to raise_error(StandardError)
+      end
+    end
+
     context 'when moving black pawn forward' do
       let(:black_pawn) { board[4][6] }
       before do
