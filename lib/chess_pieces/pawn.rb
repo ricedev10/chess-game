@@ -19,6 +19,7 @@ class Pawn < ChessPiece
 
     return [false, 'Something blocking pawn'] if distance == 2 && !board[new_position[0]][new_position[1] - 1].nil?
 
+    @position = new_position
     true
   end
 end

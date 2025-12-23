@@ -84,6 +84,7 @@ class ChessBoard
     @board[new_position[0]][new_position[1]] = chess_piece
     @board[position[0]][position[1]] = nil
     @next_player = @next_player == :white ? :black : :white
+    chess_piece.position = new_position
   end
 
   def flipped_board
