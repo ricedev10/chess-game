@@ -74,7 +74,10 @@ describe ChessBoard do
 
     context 'when moving a black piece first' do
       it 'errors' do
-        expect { chess_board.move([0, 6], [0, 5]) }.to raise_error(StandardError)
+        expect do
+          chess_board.move([0, 6],
+                           [0, 5])
+        end.to raise_error(StandardError).with_message('Can only move a white piece (attempted to move a black piece)')
       end
     end
 
