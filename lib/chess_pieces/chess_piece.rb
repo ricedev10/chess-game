@@ -9,6 +9,10 @@ class ChessPiece
     @position = position
   end
 
+  def can_move_to?(_board, _new_position)
+    true
+  end
+
   def add_positions(position1, position2)
     [position1[0] + position2[0], position1[1] + position2[1]]
   end
