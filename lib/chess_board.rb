@@ -58,21 +58,7 @@ class ChessBoard
             "Can only move a #{@next_player} piece (attempted to move a #{chess_piece.color} piece)"
     end
 
-    can_move, error_msg =
-      if chess_piece.color == :white
-        chess_piece.can_move_to?(
-          @board,
-          # position,
-          new_position
-        )
-      else
-        chess_piece.can_move_to?(
-          flipped_board,
-          # [position[0], 7 - position[1]],
-          [new_position[0], 7 - new_position[1]]
-        )
-      end
-
+    can_move, error_msg = can_move?(chess_piece, new_position)
     raise(ArgumentError, error_msg) unless can_move
 
     captured_piece = @board[new_position[0]][new_position[1]]
@@ -99,6 +85,21 @@ class ChessBoard
   end
 
   private
+
+  def can_move?(chess_piece, new_position)
+    if chess_piece.color == :white
+      return chess_piece.can_move_to?(
+        @board,
+        new_position
+      )
+    end
+
+    # return using the flipped position
+    chess_piece.can_move_to?(
+      flipped_board,
+      [new_position[0], 7 - new_position[1]]
+    )
+  end
 
   def add_line(msg)
     msg << '   |'
