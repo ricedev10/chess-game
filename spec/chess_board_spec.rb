@@ -81,6 +81,29 @@ describe ChessBoard do
       end
     end
 
+    context 'when moving a pawn one step forwards' do
+      before do
+        chess_board.move([2, 1], [2, 2])
+      end
+
+      it 'runs' do
+        white_pawn = board[2][2]
+        expect(white_pawn).to be_kind_of(Pawn)
+      end
+    end
+
+    context 'when pawn moves two steps then one step forwards' do
+      before do
+        chess_board.move([2, 1], [2, 3])
+        chess_board.move([2, 6], [2, 5]) # move black piece
+        chess_board.move([2, 3], [2, 4])
+      end
+      it 'runs' do
+        white_pawn = board[2][4]
+        expect(white_pawn).to be_kind_of(Pawn)
+      end
+    end
+
     context 'when a black piece captures a black piece' do
       it 'errors' do
         expect { chess_board.move([0, 7], [0, 6]) }.to raise_error(StandardError)
