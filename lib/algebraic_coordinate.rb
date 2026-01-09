@@ -24,4 +24,14 @@ class AlgebraicCoordinate
   def shift_file(increment)
     @file = (@file.ord + increment).clamp(97, 104).chr
   end
+
+  # shifts the coordinate's @rank by set increment. Clamped between 1-8.
+  # 
+  # @example shift the current @rank from 1 to 3
+  #   shift_rank(2)
+  #   
+  # @ param increment [Integer] the amount to increment the @rank
+  def shift_rank(increment)
+    @rank = (@rank + increment).clamp(1, 8)
+  end
 end

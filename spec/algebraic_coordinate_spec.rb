@@ -45,4 +45,22 @@ describe AlgebraicCoordinate do
       end
     end
   end
+
+  describe '#shift_rank' do
+    context 'when shifting from 1 to 8' do
+      subject(:coordinate) { described_class.new('a', 1) }
+
+      it 'shifts with positive increment' do
+        expect{ coordinate.shift_rank(7) }.to change{ coordinate.instance_variable_get(:@rank) }.from(1).to(8)
+      end
+    end
+
+    context 'when shifting from 8 to 1' do
+      subject(:coordinate) { described_class.new('d', 8) }
+
+      it 'shifts with negative increment' do
+        expect{ coordinate.shift_rank(-7) }.to change{ coordinate.instance_variable_get(:@rank) }.from(8).to(1)
+      end
+    end
+  end
 end
