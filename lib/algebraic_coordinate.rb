@@ -10,14 +10,14 @@ class AlgebraicCoordinate
     @rank = rank
   end
 
-  # shifts the coordinate's file
-  # @example shift the current file from a to b
+  # shifts the coordinate's @file
+  # @example shift the current @file from a to b
   #   shift_file(1)
   #   
-  # @example shift the current file from b to e
+  # @example shift the current @file from b to e
   #   shift_file(3)
   #   
-  # @example shift the current file from b to a
+  # @example shift the current @file from b to a
   #   shift_file(-1)
   #   
   # @param increment [Integer] the amount to increment
