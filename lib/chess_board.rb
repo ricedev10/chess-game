@@ -10,6 +10,8 @@ class ChessBoard
   end
 
   def square_at(file, rank)
+    raise ArgumentError, "Coordinate (#{file}#{rank}) is out of bounds." unless AlgebraicCoordinate.in_bounds?(file, rank)
+    
     @squares[file.to_s.ord - 97][rank - 1]
   end
 

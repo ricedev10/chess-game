@@ -60,5 +60,11 @@ describe ChessBoard do
         expect(square.rank).to eql(8)
       end
     end
+
+    context 'when file/rank is out of bounds' do
+      it 'raises an error' do
+        expect{ board.square_at(:e, 9) }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
