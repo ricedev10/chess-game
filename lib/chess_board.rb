@@ -9,6 +9,10 @@ class ChessBoard
     @squares = create_squares
   end
 
+  def square_at(file, rank)
+    @squares[file.to_s.ord - 97][rank - 1]
+  end
+
 
   private
 
@@ -16,7 +20,7 @@ class ChessBoard
     squares = Array.new(WIDTH) { Array.new(HEIGHT, nil) }
     HEIGHT.times do |h|
       WIDTH.times do |w|
-        file = (w + 97).chr
+        file = (w + 97).chr.to_sym
         rank = h + 1
 
         squares[w][h] = AlgebraicCoordinate.new(file, rank)
@@ -24,9 +28,5 @@ class ChessBoard
     end
 
     squares
-  end
-
-  def get_square_at(file, rank)
-    @squares[file.ord - 97][rank - 1]
   end
 end

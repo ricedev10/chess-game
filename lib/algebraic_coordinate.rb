@@ -1,13 +1,17 @@
 class AlgebraicCoordinate
+  attr_reader :file, :rank, :chess_piece
+  
   # Create a coordinate for each square on a ChessBoard
   # @param file [String] the file of the square (ex. "a", "b", ...)
   # @param rank [Integer] the rank of the square from 1-8
-  def initialize(file, rank)
-    raise ArgumentError, "#{file} must be between a-h" unless (97..104).include?(file.ord)
+  def initialize(file, rank, chess_piece = nil)
+    raise ArgumentError, "File must be a symbol" unless file.is_a?(Symbol)
+    raise ArgumentError, "#{file} must be between a-h" unless (97..104).include?(file.to_s.ord)
     raise ArgumentError, "#{rank} must be between 1-8" unless (1..8).include?(rank)
 
     @file = file
     @rank = rank
+    @chess_piece = chess_piece
   end
 
   # shifts the coordinate's @file
@@ -22,7 +26,7 @@ class AlgebraicCoordinate
   #   
   # @param increment [Integer] the amount to increment
   def shift_file(increment)
-    @file = (@file.ord + increment).clamp(97, 104).chr
+    @file = (@file.to_s.ord + increment).clamp(97, 104).chr.to_sym
   end
 
   # shifts the coordinate's @rank by set increment. Clamped between 1-8.

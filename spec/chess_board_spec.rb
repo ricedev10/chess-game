@@ -31,4 +31,20 @@ describe ChessBoard do
       end
     end
   end
+
+  describe '#square_at' do
+    subject(:board) { described_class.new }
+    context 'when file=a, and rank=1' do
+      it 'returns an AlgebraicCoordinate' do
+        expect(board.square_at(:a, 1)).to be_kind_of(AlgebraicCoordinate)
+      end
+
+      it 'has coordinates a1' do
+        square = board.square_at(:a, 1)
+
+        expect(square.file).to eql(:a)
+        expect(square.rank).to eql(1)
+      end
+    end
+  end
 end
