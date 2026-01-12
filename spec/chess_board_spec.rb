@@ -46,5 +46,19 @@ describe ChessBoard do
         expect(square.rank).to eql(1)
       end
     end
+
+    context 'when file=e and rank=8' do
+      it 'returns an AlgebraicCoordinate' do
+        square = board.square_at(:e, 8)
+        expect(square).to be_kind_of(AlgebraicCoordinate)
+      end
+
+      it 'has coordinates e8' do
+        square = board.square_at(:e, 8)
+        
+        expect(square.file).to eql(:e)
+        expect(square.rank).to eql(8)
+      end
+    end
   end
 end

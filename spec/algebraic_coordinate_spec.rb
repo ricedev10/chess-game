@@ -3,6 +3,32 @@ require_relative '../lib/algebraic_coordinate'
 describe AlgebraicCoordinate do
   subject(:coordinate) { described_class.new(:a, 1) }
 
+  describe '.in_bounds?' do
+    context 'when file is out of bounds (:z)' do
+      it 'returns false' do
+        expect(described_class.in_bounds?(:z, 1)).to be_falsey
+      end
+    end
+
+    context 'when rank is out of bounds (9)' do
+      it 'returns false' do
+        expect(described_class.in_bounds?(:a, 9)).to be_falsey
+      end
+    end
+
+    context 'when rank is out of bounds (-1)' do
+      it 'returns false' do
+        expect(described_class.in_bounds?(:a, -1)).to be_falsey
+      end 
+    end
+
+    context 'when coordinates are in bounds' do
+      it 'returns true' do
+        expect(described_class.in_bounds?(:b, 3)).to be_truthy
+      end
+    end
+  end
+
   describe '#initialize' do
     context 'when file is out of bounds' do
       it 'raises an error' do

@@ -1,5 +1,12 @@
 class AlgebraicCoordinate
   attr_reader :file, :rank, :chess_piece
+
+  def self.in_bounds?(file, rank)
+    return false unless (97..104).include?(file.to_s.ord)
+    return false unless (1..8).include?(rank)
+
+    true
+  end
   
   # Create a coordinate for each square on a ChessBoard
   # @param file [String] the file of the square (ex. "a", "b", ...)
