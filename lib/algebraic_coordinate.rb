@@ -45,4 +45,10 @@ class AlgebraicCoordinate
   def shift_rank(increment)
     @rank = (@rank + increment).clamp(1, 8)
   end
+
+  # to_s returns the chess piece as a string. If no chess piece is found,
+  # it returns an empty space (" ").
+  def to_s
+    return chess_piece ? chess_piece.to_s : " "
+  end
 end
