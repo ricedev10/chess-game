@@ -36,11 +36,11 @@ describe ChessBoard do
     subject(:board) { described_class.new }
     context 'when file=a, and rank=1' do
       it 'returns an AlgebraicCoordinate' do
-        expect(board.square_at(:a, 1)).to be_kind_of(AlgebraicCoordinate)
+        expect(board.square_at(:a1)).to be_kind_of(AlgebraicCoordinate)
       end
 
       it 'has coordinates a1' do
-        square = board.square_at(:a, 1)
+        square = board.square_at(:a1)
 
         expect(square.file).to eql(:a)
         expect(square.rank).to eql(1)
@@ -49,12 +49,12 @@ describe ChessBoard do
 
     context 'when file=e and rank=8' do
       it 'returns an AlgebraicCoordinate' do
-        square = board.square_at(:e, 8)
+        square = board.square_at(:e8)
         expect(square).to be_kind_of(AlgebraicCoordinate)
       end
 
       it 'has coordinates e8' do
-        square = board.square_at(:e, 8)
+        square = board.square_at(:e8)
         
         expect(square.file).to eql(:e)
         expect(square.rank).to eql(8)
@@ -63,7 +63,7 @@ describe ChessBoard do
 
     context 'when file/rank is out of bounds' do
       it 'raises an error' do
-        expect{ board.square_at(:e, 9) }.to raise_error(ArgumentError)
+        expect{ board.square_at(:e9) }.to raise_error(ArgumentError)
       end
     end
   end
